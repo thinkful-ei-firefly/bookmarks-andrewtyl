@@ -62,7 +62,23 @@ const program = (function(){
         }
     }
 
-    //renderAddPage
+    function renderAddPage(){
+        console.log("RenderAddPage ran");
+        $('#bookmarks').html("");
+        $('#filter').html("");
+        $('#add-item-page').html(`
+            <form id="add-item-form">
+                <label for="title">Title:</label>
+                <input type="text" name="title" required>
+                <label for="url">URL:</label>
+                <input type="url" name="url" required>
+                <label for="description">Description:</label>
+                <input type="text" name="description" required>
+                <button id="cancel-add">Cancel</button>
+                <input type="submit" id="submit-item" value="Submit">
+            </form>
+        `)
+    }
 
     //renderEditPage
 
@@ -70,7 +86,20 @@ const program = (function(){
 
     //handleDelete
 
-    //handleAdd
+    function handleAdd() {
+        $("header").on('click', '#add-item-button', function() {
+            console.log("Add Item button clicked!");
+            renderAddPage();
+        })
+    }
+
+    function handleAddSubmit() {
+        $("#add-item-form").submit(function(e) {
+            e.preventDefault();
+            console.log("Submit button pressed!");
+            renderDefaultPage();
+        })
+    }
 
     //handleEdit
 
@@ -87,6 +116,8 @@ const program = (function(){
 
     function allHandles() {
         console.log("allHandles ran");
+        handleAdd();
+        handleAddSubmit();
     };
 
     return {
