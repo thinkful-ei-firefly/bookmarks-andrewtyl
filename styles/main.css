@@ -1,0 +1,124 @@
+header {
+    border-bottom: black solid 3px;
+    display: flex;
+    height: 150px;
+}
+
+#add-item-button {
+    margin-left: auto;
+    margin-right: 5%;
+    height: 100px;
+    margin-bottom: 5px;
+    margin-top: auto;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 100px;
+    margin-top: auto;
+    margin-bottom: 5px;
+    margin-left: 5%;
+    margin-right: auto;
+}
+
+footer {
+    border-top: black solid 2px;
+    margin-top: 25px;
+    display: flex;
+}
+
+h6 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+#author {
+    margin-left: 5%;
+    margin-right: auto;
+}
+
+#copyright {
+    margin-right: 5%;
+    margin-left: auto;
+}
+
+
+h3 {
+    font-size: 60px;
+    margin-left: 2%;
+    margin-top: 5px;
+    margin-bottom: auto;
+    order: 1;
+    width: 70%;
+}
+
+.bookmark {
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px solid black;
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.bookmark-rating {
+    font-size: 48px;
+    margin-left: 2%;
+    margin-right: auto;
+    order: 5;
+}
+
+p {
+    font-size: 24px;
+    margin-left: 2%;
+}
+
+label {
+    font-size: 24px;
+    order: 8;
+    margin-right: 2%;
+}
+
+input[type='checkbox'] {
+    height: 24px;
+    width: 24px;
+    order: 7;
+    margin-right: 10px;
+    margin-left: auto;
+}
+
+#edit-item {
+    order: 2;
+    margin-left: auto;
+    margin-right: 1%;)
+}
+
+#delete-item {
+    order: 3;
+    margin-right: 2%;
+}
+
+.bookmark-desc {
+    order: 4;
+    width: 100%;
+}
+
+.visit-site {
+    order: 6;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+}
+
+button {
+    font-size: 24px;
+}
+
+#edit-item, #delete-item {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
