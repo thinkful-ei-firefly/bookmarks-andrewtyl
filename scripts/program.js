@@ -2,6 +2,7 @@ const program = (function(){
 
     function renderDefaultPage(){
         console.log("renderDefaultPage ran");
+        $("#add-item-form").html("");
         let bookmarks = store.localBookmarks;
         for (let i = 0; i < bookmarks.length; i++) {
             let currentBookmark = bookmarks[i];
@@ -69,12 +70,12 @@ const program = (function(){
         $('#add-item-page').html(`
             <form id="add-item-form">
                 <label for="title">Title:</label>
-                <input type="text" name="title" required>
+                <input type="text" name="title" id="newTitle" required>
                 <label for="url">URL:</label>
                 <input type="url" name="url" required>
                 <label for="description">Description:</label>
                 <input type="text" name="description" required>
-                <button id="cancel-add">Cancel</button>
+                <input type="reset" value="Cancel" id="cancel-add">
                 <input type="submit" id="submit-item" value="Submit">
             </form>
         `)
@@ -90,6 +91,7 @@ const program = (function(){
         $("header").on('click', '#add-item-button', function() {
             console.log("Add Item button clicked!");
             renderAddPage();
+            handleAddSubmit();
         })
     }
 
@@ -98,6 +100,15 @@ const program = (function(){
             e.preventDefault();
             console.log("Submit button pressed!");
             renderDefaultPage();
+            let newTitle = $("#newTitle").val();
+            console.log(newTitle);
+            //let newBookmark = {
+            //    newTitle,
+            //    newURL,
+            //    newDesc,
+            //    newRating
+            //}
+            //console.log(newBookmark);
         })
     }
 
