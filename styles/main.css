@@ -4,13 +4,28 @@ header {
     height: 150px;
 }
 
-#add-item-button {
+#add-item-button, #add-item-button-greyed {
     margin-left: auto;
     margin-right: 5%;
-    height: 100px;
+    height: 125px;
+    width: 125px;
     margin-bottom: 5px;
     margin-top: auto;
     cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+#add-item-button {
+    background-image:url(/assets/add.png);
+}
+
+#add-item-button-greyed {
+    
+    background-image:url(/assets/add-disabled.png);
+}
+
+#add-item-button:hover {
+    background-image:url(/assets/add-hover.png);
 }
 
 h1 {

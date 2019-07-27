@@ -35,12 +35,10 @@ const store = (function(){
             compact: false
         }
     ];
-    let addingNewItem = false;
     let filterMin = 0;
 
     return {
         localBookmarks,
-        addingNewItem,
         filterMin
     };
 
