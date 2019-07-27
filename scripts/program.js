@@ -4,6 +4,8 @@ const program = (function(){
         console.log("renderDefaultPage ran");
         $("#add-item-form").html("");
         $('#bookmarks').html("");
+        $('#add-item-button-greyed').attr("id", "add-item-button");
+        $('#add-item-button').attr("title", "Add Bookmark");
         let bookmarks = store.localBookmarks;
         for (let i = 0; i < bookmarks.length; i++) {
             let currentBookmark = bookmarks[i];
@@ -43,8 +45,8 @@ const program = (function(){
                     `<div class="bookmark compact" id="${currentBookmark.id}">
                     <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                     <span class="bookmark-rating">${currentRating}</span>
-                    <img class="icon" src="assets/edit.png" alt="Edit Button" id="edit-item" id="edit-button-for-${currentBookmark.id}">
-                    <img src="assets/delete.png" class="icon" alt="Delete Button" id="delete-item" id="delete-button-for-${currentBookmark.id}">
+                    <a class="icon" src="assets/edit.png" title="Edit Button" id="edit-item"></a>
+                    <a class="icon" title="Delete Button" id="delete-item"}"></a>
                     <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label>
                     </div>`
                 )
@@ -55,8 +57,8 @@ const program = (function(){
                     <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                     <p class="bookmark-desc">${currentBookmark.desc}</p>
                     <span class="bookmark-rating">${currentRating}</span>
-                    <img class="icon" src="assets/edit.png" alt="Edit Button" id="edit-item" id="edit-button-for-${currentBookmark.id}">
-                    <img src="assets/delete.png" class="icon" alt="Delete Button" id="delete-item" id="delete-button-for-${currentBookmark.id}">
+                    <a class="icon" src="assets/edit.png" title="Edit Button" id="edit-item"></a>
+                    <a class="icon" title="Delete Button" id="delete-item"}"></a>
                     <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact"><label for="compact">Compact View</label>
                     <span class="visit-site"><a href="${currentBookmark.url}">Visit Site</a><span>
                     </div>`
@@ -70,14 +72,32 @@ const program = (function(){
         $('#filter').html("");
         $('#add-item-page').html(`
             <form id="add-item-form">
-                <label for="title">Title:</label>
-                <input type="text" name="title" id="newTitle" required>
-                <label for="url">URL:</label>
-                <input type="url" name="url" id="newURL" required>
-                <label for="description">Description:</label>
-                <input type="text" name="description" id="newDesc" required>
+                <div id="title-input">
+                    <label for="title" id="title-label">Title:</label>
+                    <input type="text" minlength="1" maxlength="25" name="title" id="newTitle" required>
+                </div>
+                <div class="rate" id="rate-input">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <div id="url-input">
+                    <label for="url">URL:</label>
+                    <input type="url" name="url" id="newURL" required>
+                </div>
+                <div id="desc-input">
+                    <label for="description">Description:</label>
+                    <input type="text" name="description" id="newDesc" required>
+                </div>
                 <input type="reset" value="Cancel" id="cancel-add">
-                <input type="submit" id="submit-item" value="Submit">
+                <input type="submit" id="submit-item" value="Add Bookmark">
             </form>
         `)
         $('#add-item-button').attr("id", "add-item-button-greyed");
@@ -106,13 +126,16 @@ const program = (function(){
             const newTitle = $("#newTitle").val();
             const newURL = $("#newURL").val();
             const newDesc = $('#newDesc').val();
+            const newRating = $("input[name=rate]:checked").val();
             let newBookmark = {
                 newTitle,
                 newURL,
-                newDesc
-            //    newRating
+                newDesc,
+                newRating
             }
             console.log(newBookmark);
+            //Upload to API
+            //Update local to match server
             renderDefaultPage();
         })
     }
