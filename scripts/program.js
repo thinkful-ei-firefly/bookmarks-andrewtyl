@@ -14,7 +14,7 @@ const program = (function(){
         <option>4 Stars</option>
         <option>3 Stars</option>
         <option>2 Stars</option>
-        <option>1 Stars</option>
+        <option>1 Star</option>
         </select>
 
         `);
@@ -373,13 +373,145 @@ const program = (function(){
     }
 
     function handleFilter() {
-        $("#filter").change(function(e) {
-            console.log(e.currentTarget);
-            const filterValue = $(e.currentTarget).val();
+        $("#filter").change(function() {
+            const filterValue = $("#rating-filter-selector").val();
             console.log(filterValue);
+            if (filterValue == "Filter by Minimum Rating"){
+                store.filterMin = 0;
+            }
+            else if (filterValue == "5 Stars"){
+                store.filterMin = 5;
+            }
+            else if (filterValue == "4 Stars"){
+                store.filterMin = 4;
+            }
+            else if (filterValue == "3 Stars"){
+                store.filterMin = 3;
+            }
+            else if (filterValue == "2 Stars"){
+                store.filterMin = 2;
+            }
+            else if (filterValue == "1 Star"){
+                store.filterMin = 1;
+            }
+            else {
+                console.log("Something broke at handleFilter() / line 375 program.js.")
+            }
+            pushFiltered();
         })
         
     }
+
+    function pushFiltered() {
+        store.filteredBookmarks = [];
+        let skipStep = false;
+        if (store.filterMin === 1) {
+            for (let i = 0; store.localBookmarks.length > i; i++){
+                let currentBookmark = store.localBookmarks[i];
+                if (currentBookmark.rating >= 1) {
+                    store.filteredBookmarks.push(currentBookmark);
+                }
+            }
+        }
+        if (store.filterMin === 2 ) {
+            for (let i = 0; store.localBookmarks.length > i; i++){
+                let currentBookmark = store.localBookmarks[i];
+                if (currentBookmark.rating >= 2) {
+                    store.filteredBookmarks.push(currentBookmark);
+                }
+            }
+        }
+        if (store.filterMin === 3 ) {
+            for (let i = 0; store.localBookmarks.length > i; i++){
+                let currentBookmark = store.localBookmarks[i];
+                if (currentBookmark.rating >= 3) {
+                    store.filteredBookmarks.push(currentBookmark);
+                }
+            }
+        }
+        if (store.filterMin === 4 ) {
+            for (let i = 0; store.localBookmarks.length > i; i++){
+                let currentBookmark = store.localBookmarks[i];
+                if (currentBookmark.rating >= 4) {
+                    store.filteredBookmarks.push(currentBookmark);
+                }
+            }
+        }
+        if (store.filterMin === 5 ) {
+            for (let i = 0; store.localBookmarks.length > i; i++){
+                let currentBookmark = store.localBookmarks[i];
+                if (currentBookmark.rating >= 5) {
+                    store.filteredBookmarks.push(currentBookmark);
+                }
+            }
+        }
+        if (store.filterMin === 0 || store.filterMin > 5) {
+            renderDefaultPage();
+            skipStep = true;
+        }
+        if (skipStep === false) {
+            console.log(store.filteredBookmarks);
+            $('#bookmarks').html("");
+            for (let i = 0; i < store.filteredBookmarks.length; i++) {
+                let currentBookmark = store.filteredBookmarks[i];
+                let currentRating;
+    
+    
+                if (currentBookmark.rating === 5){
+                    currentRating = "&#9733;&#9733;&#9733;&#9733;&#9733;";
+                }
+                else if (currentBookmark.rating === 4) {
+                    currentRating = "&#9733;&#9733;&#9733;&#9733;&#9734;";
+                }
+                
+                else if (currentBookmark.rating === 3) {
+                    currentRating = "&#9733;&#9733;&#9733;&#9734;&#9734;";
+                }
+                
+                else if (currentBookmark.rating === 2) {
+                    currentRating = "&#9733;&#9733;&#9734;&#9734;&#9734;";
+                }
+                
+                else if (currentBookmark.rating === 1) {
+                    currentRating = "&#9733;&#9734;&#9734;&#9734;&#9734;";
+                }
+                
+                else if (currentBookmark.rating === 0) {
+                    currentRating = "&#9734;&#9734;&#9734;&#9734;&#9734;";
+                }
+                else {
+                    console.log(`ERROR. Bookmark ${currentBookmark.title} has no rating`);
+                }
+    
+    
+    
+                if (currentBookmark.compact === true) {
+                    $('#bookmarks').append(
+                        `<div class="bookmark compact" id="${currentBookmark.id}">
+                        <h3 class ="bookmark-title">${currentBookmark.title}</h3>
+                        <span class="bookmark-rating">${currentRating}</span>
+                        <a class="icon" src="assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                        <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"></a>
+                        <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label>
+                        </div>`
+                    )
+                }
+                else if (currentBookmark.compact === false) {
+                    $('#bookmarks').append(
+                        `<div class="bookmark notCompact" id="${currentBookmark.id}">
+                        <h3 class ="bookmark-title">${currentBookmark.title}</h3>
+                        <p class="bookmark-desc">${currentBookmark.desc}</p>
+                        <span class="bookmark-rating">${currentRating}</span>
+                        <a class="icon" src="assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                        <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"}"></a>
+                        <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact"><label for="compact">Compact View</label>
+                        <span class="visit-site"><a href="${currentBookmark.url}">Visit Site</a><span>
+                        </div>`
+                    )}
+            }
+        }
+
+    };
 
 
     function allHandles() {

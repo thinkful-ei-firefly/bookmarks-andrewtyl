@@ -36,10 +36,12 @@ const store = (function(){
         }
     ];
     let filterMin = 0;
+    let filteredBookmarks = [];
 
     return {
         localBookmarks,
-        filterMin
+        filterMin,
+        filteredBookmarks
     };
 
 
