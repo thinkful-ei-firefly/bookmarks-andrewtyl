@@ -241,8 +241,9 @@ button {
 
 #newDesc {
     width: -webkit-calc(84% - 20px);
-    min-height: auto;
+    min-height: 100px;
     text-align: left;
+    resize: vertical;
 }
 
 #desc-input {
