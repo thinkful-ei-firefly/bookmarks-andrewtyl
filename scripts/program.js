@@ -6,6 +6,19 @@ const program = (function(){
         $('#bookmarks').html("");
         $('#add-item-button-greyed').attr("id", "add-item-button");
         $('#add-item-button').attr("title", "Add Bookmark");
+
+        $('#filter').html(`
+        <select id="rating-filter-selector">
+        <option>Filter by Minimum Rating</option>
+        <option>5 Stars</option>
+        <option>4 Stars</option>
+        <option>3 Stars</option>
+        <option>2 Stars</option>
+        <option>1 Stars</option>
+        </select>
+
+        `);
+
         let bookmarks = store.localBookmarks;
         for (let i = 0; i < bookmarks.length; i++) {
             let currentBookmark = bookmarks[i];
@@ -359,6 +372,15 @@ const program = (function(){
         })
     }
 
+    function handleFilter() {
+        $("#filter").change(function(e) {
+            console.log(e.currentTarget);
+            const filterValue = $(e.currentTarget).val();
+            console.log(filterValue);
+        })
+        
+    }
+
 
     function allHandles() {
         console.log("allHandles ran");
@@ -372,6 +394,7 @@ const program = (function(){
         handleDelete();
         handleDeleteNo();
         handleDeleteYes();
+        handleFilter();
     };
 
     return {
