@@ -479,10 +479,12 @@ const program = (function(){
                     $('#bookmarks').append(
                         `<div class="bookmark compact" id="${currentBookmark.id}">
                         <h3 class ="bookmark-title">${currentBookmark.title}</h3>
-                        <span class="bookmark-rating">${currentRating}</span>
                         <a class="icon" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
                         <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"></a>
-                        <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label>
+                        <div id="flex-fix">
+                        <span class="bookmark-rating">${currentRating}</span>
+                        <div id="compact-holder">
+                        <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label></div><div>
                         </div>`
                     )
                 }
