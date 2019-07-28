@@ -17,16 +17,16 @@ header {
 }
 
 #add-item-button {
-    background-image:url(/assets/add.png);
+    background-image:url(assets/add.png);
 }
 
 #add-item-button-greyed {
     
-    background-image:url(/assets/add-disabled.png);
+    background-image:url(assets/add-disabled.png);
 }
 
 #add-item-button:hover {
-    background-image:url(/assets/add-hover.png);
+    background-image:url(assets/add-hover.png);
 }
 
 h1 {
@@ -111,25 +111,25 @@ input[type='checkbox'] {
     order: 2;
     margin-left: auto;
     margin-right: 1%;
-    background-image:url(/assets/edit.png);
+    background-image:url(assets/edit.png);
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 #edit-item:hover {
-    background-image:url(/assets/edit-hover.png);
+    background-image:url(assets/edit-hover.png);
 }
 
 #delete-item {
     order: 3;
     margin-right: 2%;
-    background-image:url(/assets/delete.png);
+    background-image:url(assets/delete.png);
     background-repeat: no-repeat;
     background-size: contain;
 }
 
 #delete-item:hover {
-    background-image:url(/assets/delete-hover.png);
+    background-image:url(assets/delete-hover.png);
 }
 
 .bookmark-desc {
