@@ -191,7 +191,7 @@ button {
 }
 
 
-#add-item-form {
+#add-item-form, #edit-item-form {
     display: flex;
     flex-wrap: wrap;
 }
@@ -209,7 +209,7 @@ button {
     margin-top: 25px;
     height: 40px;
     margin-bottom: 50px;
-    margin-left: 15px;
+    margin-left: 1.5%;
 }
 
 #title-label {
@@ -231,7 +231,7 @@ button {
     order: 2;
     width: 100%;
     margin-bottom: 50px;
-    margin-left: 65px;
+    margin-left: 4%;
     margin-right: auto;
 }
 
@@ -250,7 +250,7 @@ button {
     order: 3;
     width: 100%;
     margin-bottom: 50px;
-    margin-left: 5px;
+    margin-left: 0%;
     margin-right: auto;
     display: flex;
 }
@@ -259,12 +259,12 @@ button {
     order: 0;
 }
 
-#cancel-add {
+#cancel-add, #cancel-edit {
     order: 4;
     margin-left: 76.5%;
 }
 
-#submit-item {
+#submit-item, #submit-edit {
     order: 5;
     margin-left: 20px;
 }

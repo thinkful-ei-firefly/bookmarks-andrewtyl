@@ -6,55 +6,67 @@ const api = (function(){
         let error;
         return fetch(input)
             .then(res => {
-                console.log(res);
                 if (!res.ok) {
-                    error = {code: res.status};
-                    if (!res.headers.get('content-type').includes('json')) {
-                        error.message = res.statusText;
-                        return Promise.reject(error);
-                    }
+                    window.alert("There may have been an issue accessing the Bookmarks on the server. Please refresh the page.")
                 }
-                else {return res};
+                else {
+                    return res.json();
+                };
             })
             .then(data => {
-                console.log(data);
                 if (error) {
                     error.message = data.message;
                     return Promise.reject(error);
                 }
                 else {
-                    let jsondata = JSON.stringify(data);
-                    console.log(jsondata);
-                    return jsondata
+                    return data;
                 }
             })
     }
 
     function getBookmarks() {
         return listAPIFetch(baseURL, {
-            method: 'GET',
-            headers: {'Content-Type':'application/json'}
+            method: "GET",
+            headers: {"Content-Type":"application/json"}
         })};
 
     function pushBookmark (title, url, desc, rating) {
-        return listAPIFetch(baseURL, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: {'title':title, 'url':url, 'desc':desc, 'rating':rating}})
+        let pushedRating = rating;
+        if (rating === undefined){pushedRating = 1};
+        let incomingBody = {"title":title, "url":url, "desc":desc, "rating":pushedRating}
+        let pushedBody = JSON.stringify(incomingBody);
+        return fetch(baseURL, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: pushedBody})
+        .then(res => {
+            if (!res.ok) {
+                window.alert("There may have been an issue accessing the Bookmarks on the server. Please refresh the page.");
+            }
+        })
         };
 
     function patchBookmark (id, title, url, desc, rating) {
-        return listAPIFetch(`${baseURL}/${id}`, {
-            method: 'PATCH',
-            headers: {'Content-Type':'application/json'},
-            body: {'title':title, 'url':url, 'desc':desc, 'rating':rating}})
-        };
+        let pushedRating = rating;
+        if (rating === undefined){pushedRating = 1};
+        let incomingBody = {"title":title, "url":url, "desc":desc, "rating":pushedRating}
+        let pushedBody = JSON.stringify(incomingBody);
+        return fetch(`${baseURL}/${id}`, {
+            method: "PATCH",
+            headers: {"Content-Type":"application/json"},
+            body: pushedBody})
+        .then(res => {
+                if (!res.ok) {window.alert("There may have been an issue accessing the Bookmarks on the server. Please refresh the page.")}
+            })}
 
     function deleteBookmark (id) {
-        return listAPIFetch(`${baseURL}/${id}`, {
-            method: 'DELETE',
-            headers: {'Content-Type':'application/json'}
-        })};
+        return fetch(`${baseURL}/${id}`, {
+            method: "DELETE"
+        })
+            .then(res =>{
+                if (!res.ok) {window.alert("There may have been an issue accessing the Bookmarks on the server. Please refresh the page.")};
+            })
+    };
 
     return {
         getBookmarks,

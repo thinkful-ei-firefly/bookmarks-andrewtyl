@@ -2,8 +2,7 @@ const program = (function(){
 
     function renderDefaultPage(){
 
-        console.log("renderDefaultPage ran");
-        $("#add-item-form").html("");
+        $("#add-item-page").html("");
         $('#bookmarks').html("");
         $('#add-item-button-greyed').attr("id", "add-item-button");
         $('#add-item-button').attr("title", "Add Bookmark");
@@ -19,6 +18,7 @@ const program = (function(){
         </select>
 
         `);
+
 
         let bookmarks = store.localBookmarks;
         for (let i = 0; i < bookmarks.length; i++) {
@@ -81,7 +81,6 @@ const program = (function(){
     }
 
     function renderAddPage(){
-        console.log("RenderAddPage ran");
         $('#bookmarks').html("");
         $('#filter').html("");
         $('#add-item-page').html(`
@@ -119,7 +118,6 @@ const program = (function(){
     }
 
     function renderEditPage(thisBookmark){
-        console.log("Render Edit Page ran");
         $('#bookmarks').html("");
         $('#filter').html("");
         $('#add-item-page').html(`
@@ -231,7 +229,6 @@ const program = (function(){
     }
 
     function renderDeletePage(thisBookmark){
-        console.log("Render Edit Page ran");
         $('#bookmarks').html("");
         $('#filter').html("");
         $('#bookmarks').html(`
@@ -245,13 +242,10 @@ const program = (function(){
 
     function handleDelete() {
         $("#bookmarks").on("click", "#delete-item", function(e) {
-            console.log("delete button clicked");
-            console.log(e.currentTarget);
             const thisID = $(e.currentTarget).data("id");
             const thisBookmark = store.localBookmarks.find(function(input) {
                 return thisID === input.id;
             });
-            console.log(thisBookmark);
             renderDeletePage(thisBookmark);
             handleDeleteNo();
             handleDeleteYes();
@@ -260,13 +254,12 @@ const program = (function(){
 
     function handleDeleteYes() {
         $('#delete-confirm').on("click", "#yes-delete", function(e){
-            console.log(e.currentTarget);
             const thisID = $(e.currentTarget).data("id");
-            console.log(thisID);
-            //DELETE thisID from API
-            //update localbookmarks from server
-            renderDefaultPage();
-        }
+            api.deleteBookmark(thisID)
+                .then(res => {
+                    store.reload = true;
+                    reloadChecker(renderDefaultPage);
+        })}
         );
     }
 
@@ -278,7 +271,6 @@ const program = (function(){
 
     function handleAdd() {
         $("header").on('click', '#add-item-button', function() {
-            console.log("Add Item button clicked!");
             renderAddPage();
             handleAddSubmit();
             handleCancelAdd();
@@ -288,7 +280,6 @@ const program = (function(){
     function handleAddSubmit() {
         $("#add-item-form").submit(function(e) {
             e.preventDefault();
-            console.log("Submit button pressed!");
             const newTitle = $("#newTitle").val();
             const newURL = $("#newURL").val();
             const newDesc = $('#newDesc').val();
@@ -297,13 +288,15 @@ const program = (function(){
                 newTitle,
                 newURL,
                 newDesc,
-                newRating
+                newRating,
+                compact: true
             }
             if (newBookmark.newRating == undefined) {newBookmark.rating = 0};
-            console.log(newBookmark);
-            //Upload to API
-            //Update local to match server
-            renderDefaultPage();
+            api.pushBookmark(newBookmark.newTitle, newBookmark.newURL, newBookmark.newDesc, newBookmark.newRating)
+                .then(res => {
+                    store.reload = true;
+                    reloadChecker(renderDefaultPage);
+                })
         })
     }
 
@@ -316,13 +309,10 @@ const program = (function(){
 
     function handleEdit() {
         $("#bookmarks").on("click", "#edit-item", function(e) {
-            console.log("Edit button clicked");
-            console.log(e.currentTarget);
             const thisID = $(e.currentTarget).data("id");
             const thisBookmark = store.localBookmarks.find(function(input) {
                 return thisID === input.id;
             });
-            console.log(thisBookmark);
             renderEditPage(thisBookmark);
             handleCancelEdit();
             handleEditSubmit();
@@ -333,7 +323,6 @@ const program = (function(){
         $("#edit-item-form").submit(function(e) {
             e.preventDefault();
             const thisID = $(e.currentTarget).data("id");
-            console.log("Submit button pressed!");
             const newTitle = $("#newTitle").val();
             const newURL = $("#newURL").val();
             const newDesc = $('#newDesc').val();
@@ -345,24 +334,24 @@ const program = (function(){
                 newRating
             }
             if (newBookmark.newRating == undefined) {newBookmark.rating = 0};
-            console.log(newBookmark);
-            //Upload Patch to API (thisID, newBookmark)
-            //Update local to match server
-            renderDefaultPage();
+            api.patchBookmark(thisID, newBookmark.newTitle, newBookmark.newURL, newBookmark.newDesc, newBookmark.newRating)
+                .then(res =>{
+                    store.reload = true;
+                    reloadChecker(renderDefaultPage);
+                })
         })
     }
 
     function handleCancelEdit() {
         $("#edit-item-form").on("click", "#cancel-edit", function(e) {
             e.preventDefault();
+            $('#edit-item-form').html('');
             renderDefaultPage();
         })
     }
 
     function handleCompactToggle() {
         $("#bookmarks").on("click", ".compact-toggle", function(e) {
-            console.log("Toggled activated");
-            console.log(e.currentTarget);
             const thisID = $(e.currentTarget).data("id");
             const thisBookmark = store.localBookmarks.find(function(input) {
                 return thisID === input.id;
@@ -376,7 +365,6 @@ const program = (function(){
     function handleFilter() {
         $("#filter").change(function() {
             const filterValue = $("#rating-filter-selector").val();
-            console.log(filterValue);
             if (filterValue == "Filter by Minimum Rating"){
                 store.filterMin = 0;
             }
@@ -451,7 +439,6 @@ const program = (function(){
             skipStep = true;
         }
         if (skipStep === false) {
-            console.log(store.filteredBookmarks);
             $('#bookmarks').html("");
             for (let i = 0; i < store.filteredBookmarks.length; i++) {
                 let currentBookmark = store.filteredBookmarks[i];
@@ -514,9 +501,34 @@ const program = (function(){
 
     };
 
+    function reloadChecker(functionToDo){
+        if (store.reload === true){
+            if (store.reload === true) {
+                store.reload = false;
+                store.localBookmarks = [];
+                api.getBookmarks()
+                    .then (serverBookmarks => {
+                        for (let i = 0; i < serverBookmarks.length; i++) {
+                        let currentServerBookmark = serverBookmarks[i];
+                        store.localBookmarks.push(
+                            {
+                                id: currentServerBookmark.id,
+                                title: currentServerBookmark.title,
+                                desc: currentServerBookmark.desc,
+                                url: currentServerBookmark.url,
+                                rating: currentServerBookmark.rating,
+                                compact: true
+                            }
+                    )
+                }
+            })
+            .then (functionToDo);
+        }
+        }
+    }
+
 
     function allHandles() {
-        console.log("allHandles ran");
         handleAdd();
         handleAddSubmit();
         handleCancelAdd();
@@ -532,6 +544,7 @@ const program = (function(){
 
     return {
         allHandles,
-        renderDefaultPage
+        renderDefaultPage,
+        reloadChecker
     };
 }())
