@@ -84,7 +84,7 @@ h3 {
     font-size: 48px;
     margin-left: 2%;
     margin-right: auto;
-    order: 5;
+    order: 4;
     color: goldenrod;
 }
 
@@ -105,6 +105,10 @@ input[type='checkbox'] {
     order: 7;
     margin-right: 10px;
     margin-left: auto;
+}
+
+#compact-holder {
+    order: 7;
 }
 
 #edit-item {
@@ -267,4 +271,22 @@ button {
 #submit-item, #submit-edit {
     order: 5;
     margin-left: 20px;
+}
+
+#compact-holder {
+    width: 200px;
+    margin-right: 10px;
+    margin-left: auto;
+    float: right;
+    margin-top: 15px;
+}
+
+#flex-fix {
+    order: 100;
+    width: 100%;
+}
+
+#rating-filter-selector {
+    margin-top: 10px;
+    margin-left: 10px;
 }
