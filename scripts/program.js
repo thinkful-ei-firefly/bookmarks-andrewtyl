@@ -59,7 +59,7 @@ const program = (function(){
                     `<div class="bookmark compact" id="${currentBookmark.id}">
                     <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                     <span class="bookmark-rating">${currentRating}</span>
-                    <a class="icon" src="../assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                    <a class="icon" src="/bookmarks-andrewtyl//assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
                     <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"></a>
                     <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label>
                     </div>`
@@ -71,7 +71,7 @@ const program = (function(){
                     <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                     <p class="bookmark-desc">${currentBookmark.desc}</p>
                     <span class="bookmark-rating">${currentRating}</span>
-                    <a class="icon" src="../assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                    <a class="icon" src="/bookmarks-andrewtyl//assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
                     <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"}"></a>
                     <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact"><label for="compact">Compact View</label>
                     <span class="visit-site"><a href="${currentBookmark.url}">Visit Site</a><span>
@@ -478,7 +478,7 @@ const program = (function(){
                         `<div class="bookmark compact" id="${currentBookmark.id}">
                         <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                         <span class="bookmark-rating">${currentRating}</span>
-                        <a class="icon" src="../assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                        <a class="icon" src="/bookmarks-andrewtyl/assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
                         <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"></a>
                         <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact" checked><label for="compact">Compact View</label>
                         </div>`
@@ -490,7 +490,7 @@ const program = (function(){
                         <h3 class ="bookmark-title">${currentBookmark.title}</h3>
                         <p class="bookmark-desc">${currentBookmark.desc}</p>
                         <span class="bookmark-rating">${currentRating}</span>
-                        <a class="icon" src="../assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
+                        <a class="icon" src="/bookmarks-andrewtyl//assets/edit.png" title="Edit Button" id="edit-item" data-id="${currentBookmark.id}"></a>
                         <a class="icon" title="Delete Button" id="delete-item" data-id="${currentBookmark.id}"}"></a>
                         <input type="checkbox" class="compact-toggle" id="compact-for-${currentBookmark.id}" data-id="${currentBookmark.id}" name="compact"><label for="compact">Compact View</label>
                         <span class="visit-site"><a href="${currentBookmark.url}">Visit Site</a><span>
