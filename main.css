@@ -265,12 +265,14 @@ button {
 
 #cancel-add, #cancel-edit {
     order: 4;
-    margin-left: 76.5%;
+    margin-left: 65%;
+    font-size: 200%;
 }
 
 #submit-item, #submit-edit {
     order: 5;
     margin-left: 20px;
+    font-size: 200%;
 }
 
 #compact-holder {
