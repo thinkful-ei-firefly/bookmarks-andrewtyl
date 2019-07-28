@@ -1,6 +1,7 @@
 const program = (function(){
 
     function renderDefaultPage(){
+
         console.log("renderDefaultPage ran");
         $("#add-item-form").html("");
         $('#bookmarks').html("");
